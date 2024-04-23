@@ -8,7 +8,7 @@
 
     <div style="color:#575757; font-style: bold; font-size: 3rem; border-bottom: 1px solid white;">{{title}}</div> 
     
-    <br><!-- Log on to codeastro.com for more projects -->
+    <br>
     
     <form method="post">
     
@@ -16,17 +16,17 @@
         {{ form.non_field_errors }}
         
         <div class="form-group">
-            {{ form.name.errors }}
-            <label for="{{ form.name.id_for_label }}">Name:</label>
-            {{ form.name }}
+            {{ form.nom.errors }}
+            <label for="{{ form.nom.id_for_label }}">Nom:</label>
+            {{ form.nom }}
         </div>
         <div class="form-group ">
-            {{ form.quantity.errors }}
-            <label for="{{ form.quantity.id_for_label }}">Quantity:</label>
-            {{ form.quantity }}
+            {{ form.quantite.errors }}
+            <label for="{{ form.quantite.id_for_label }}">Quantité:</label>
+            {{ form.quantite }}
         </div>
 
-        <br><!-- Log on to codeastro.com for more projects -->
+        <br>
 
         <div class="align-middle">
             <button type="submit" class="btn btn-success">{{ savebtn }}</button>
@@ -34,11 +34,11 @@
                 <button type="reset" class="btn btn-danger" >Reset</button>
             {% endif %}
             {% if delbtn %}
-                <a href="{% url 'delete-stock' object.pk %}" class="btn  btn-danger"> Delete Stock </a>
+                <a href="{% url 'sup-stock' object.id %}" class="btn  btn-danger"> Supprimer Produit </a>
             {% endif %}
-            <a href="{% url 'inventory' %}" class="btn btn-secondary">Cancel</a>
+            <a href="{% url 'stock' %}" class="btn btn-secondary">Annuler</a>
         </div>
         
-    </form><!-- Log on to codeastro.com for more projects -->
+    </form>
 
 {% endblock content %}

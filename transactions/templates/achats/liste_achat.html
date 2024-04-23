@@ -3,15 +3,15 @@
 {% load widget_tweaks %}
 
 
-{% block title %} Purchases List {% endblock title %}
+{% block title %} Liste Achats {% endblock title %}
 
 
 {% block content %}
     
     <div class="row" style="color: #575757; font-style: bold; font-size: 3rem;">
-        <div class="col-md-8">Purchases List</div>
-        <div class="col-md-4">            <!-- Log on to codeastro.com for more projects -->   
-            <div style="float:right;"> <a class="btn btn-success" href="{% url 'select-supplier' %}">New Incoming Stock</a> </div>
+        <div class="col-md-8">Liste des achats</div>
+        <div class="col-md-4">
+            <div style="float:right;"> <a class="btn btn-success" href="{% url 'select-fournisseur' %}">Nouvel Achat</a> </div>
         </div>
     </div>
 
@@ -21,35 +21,35 @@
 
         <thead class="thead-dark align-middle">
             <tr>
-                <th width="10%">Bill No.</th>
-                <th width="15%">Supplier</th>
-                <th width="15%">Stocks Purchased</th>
-                <th width="10%">Quantity Purchased</th>
-                <th width="15%">Total Purchased Price</th>
-                <th width="10%">Purchased Date</th>
+                <th width="10%">No. Facture</th>
+                <th width="15%">Fournisseur</th>
+                <th width="15%">Stock</th>
+                <th width="10%">Quantité</th>
+                <th width="15%">Montant Total</th>
+                <th width="10%">Date</th>
                 <th width="25%">Actions</th>
             </tr>
         </thead>
 
-{% if bills %}
+{% if factures %}
 
         <tbody>         
-            {% for purchase in bills %}
+            {% for achat in factures %}
             <tr>
-                <td class="align-middle"> <p>{{ purchase.billno }}</p> </td>
+                <td class="align-middle"> <p>{{ achat.nofacture }}</p> </td>
                 <td class=""> 
-                    {% if purchase.supplier.is_deleted %}
-                        {{ purchase.supplier }}<br> 
+                    {% if achat.fournisseur.is_deleted %}
+                        {{ achat.fournisseur }}<br>
                     {% else %}
-                        <a href="{% url 'supplier' purchase.supplier.name %}">{{ purchase.supplier }}</a> <br> 
+                        <a href="{% url 'fournisseur' achat.fournisseur.nom %}">{{ achat.fournisseur }}</a> <br>
                     {% endif %}
-                    <small style="color: #909494">Ph No : {{ purchase.supplier.phone }}</small> 
-                </td><!-- Log on to codeastro.com for more projects -->
-                <td class="align-middle">{% for item in purchase.get_items_list %} {{ item.stock.name }} <br> {% endfor %}</td>
-                <td class="align-middle">{% for item in purchase.get_items_list %} {{ item.quantity }} <br> {% endfor %}</td>     
-                <td class="align-middle">${{ purchase.get_total_price }}</td>
-                <td class="align-middle">{{ purchase.time.date }}</td>
-                <td class="align-middle"> <a href="{% url 'purchase-bill' purchase.billno %}" class="btn btn-secondary btn-sm">View Bill</a> <a href="{% url 'delete-purchase' purchase.pk %}" class="btn btn-danger btn-sm">Delete Bill</a> </td>
+                    <small style="color: #909494">Tel : {{ achat.fournisseur.telephone }}</small>
+                </td>
+                <td class="align-middle">{% for article in achat.get_items_list %} {{ article.stock.nom }} <br> {% endfor %}</td>
+                <td class="align-middle">{% for article in achat.get_items_list %} {{ article.quantite }} <br> {% endfor %}</td>
+                <td class="align-middle">${{ achat.get_total_price }}</td>
+                <td class="align-middle">{{ achat.date.date }}</td>
+                <td class="align-middle"> <a href="{% url 'achat-facture' achat.nofacture %}" class="btn btn-secondary btn-sm">Voir Facture</a> <a href="{% url 'sup-achats' achat.id %}" class="btn btn-danger btn-sm">Supprimer Facture</a> </td>
             </tr>
             {% endfor %}
         </tbody>
@@ -82,12 +82,11 @@
 
 {% else %}
 
-        <tbody></tbody>  <!-- Log on to codeastro.com for more projects --> 
+        <tbody></tbody>
     </table>
 
     <br><br><br><br><br><br><br><br>
-    <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">The records are empty. Please try adding some.</div>
-<!-- Log on to codeastro.com for more projects -->
+    <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">Le registre est vide. Veuillez essayer d'en ajouter.</div>
 {% endif %}
 
 {% endblock content %}

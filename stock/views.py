@@ -41,6 +41,10 @@ class StockUpdateView(SuccessMessageMixin, UpdateView):
     success_url = '/stock'
     success_message = "Stock a été mis à jour avec succès"
 
+    def get_object(self, queryset=None):
+        id = self.kwargs.get('id')
+        return get_object_or_404(Stock, id=id)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = 'Modifier Stock'

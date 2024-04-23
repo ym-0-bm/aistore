@@ -2,28 +2,28 @@
 {% load static %}
 
 
-{% block title %} New Purchase {% endblock title %}
+{% block title %} Nouvel Approvisionnement {% endblock title %}
 
 
 {% block content %}
 
-    <div style="color:#575757; font-style: bold; font-size: 3rem; border-bottom: 1px solid white;">New Purchase</div>
+    <div style="color:#575757; font-style: bold; font-size: 3rem; border-bottom: 1px solid white;">Nouvel Approvisionnement</div>
     
-        <br><!-- Log on to codeastro.com for more projects -->
+        <br>
 
         <div class="panel panel-default">
-            <div class="panel-heading panel-heading-text">Supplier Details</div>
+            <div class="panel-heading panel-heading-text">Details Fournisseur</div>
             <div class="panel-body">
                     
                 <div class="form-group">
-                    <label for="id_name" class="panel-body-text">Supplier Name:</label>
-                    <input type="text" class="form-control textinput" id="id_name" value="{{ supplier.name }}" disabled>
+                    <label for="id_name" class="panel-body-text">Nom Fournisseur:</label>
+                    <input type="text" class="form-control textinput" id="id_name" value="{{ fournisseur.nom }}" disabled>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="id_phone" class="panel-body-text">Phone No:</label>
-                        <input type="text" class="form-control textinput" id="id_phone" value="{{ supplier.phone }}" disabled>
+                        <label for="id_phone" class="panel-body-text">No Téléphone:</label>
+                        <input type="text" class="form-control textinput" id="id_phone" value="{{ fournisseur.telephone }}" disabled>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="id_gstin" class="panel-body-text">GSTIN No:</label>
@@ -31,7 +31,7 @@
                     </div>
                 </div>
 
-            </div><!-- Log on to codeastro.com for more projects -->
+            </div>
         </div>
 
         <br>
@@ -41,7 +41,7 @@
             {% csrf_token %}
             {{ formset.management_form }}
 
-            <div class="panel-heading panel-heading-text">Product Details</div>
+            <div class="panel-heading panel-heading-text">Details Produit</div>
             
                 <div id="stockitem"> 
                     <div class="panel-body">
@@ -51,18 +51,18 @@
                                 {{ form.stock.errors }}
                                 <label class="panel-body-text">Stock:</label>
                                 {{ form.stock }}
-                            </div><!-- Log on to codeastro.com for more projects -->
-                            <div class="form-group col-md-2">
-                                <label class="panel-body-text">Price per item:</label>
-                                {{ form.perprice }}
                             </div>
                             <div class="form-group col-md-2">
-                                {{ form.quantity.errors }}
-                                <label class="panel-body-text">Quantity:</label>
-                                {{ form.quantity }}
-                            </div><!-- Log on to codeastro.com for more projects -->
+                                <label class="panel-body-text">Prix unitaire de l'article :</label>
+                                {{form.prixunitaire}}
+                            </div>
+                            <div class="form-group col-md-2">
+                                {{ form.quantite.errors }}
+                                <label class="panel-body-text">Quantité:</label>
+                                {{ form.quantite }}
+                            </div>
                             <div class="form-group col-md-1">
-                                <label class="panel-body-text">Price:</label>
+                                <label class="panel-body-text">Prix:</label>
                                 <input type="text" class="textinput form-control totalprice" value="1" disabled required>
                             </div>
                             <div class="form-group col-md-1">
@@ -72,13 +72,13 @@
                         </div>
                     {% endfor %}
                         <div style="text-align: right;">                    
-                            <a href="#" class="add-form-row">+ Add More</a>
+                            <a href="#" class="add-form-row">+ Ajouter plus</a>
                         </div>
                     </div>
                 </div>
 
 
-            <br><!-- Log on to codeastro.com for more projects -->
+            <br>
 
             <div class="align-middle">
                 <button type="submit" class="btn btn-success">Add to Purchases</button>
@@ -90,7 +90,6 @@
 
     </div>
 
-    <!-- Custom JS to add and remove item forms --><!-- Log on to codeastro.com for more projects -->
     <script type="text/javascript" src="{% static 'js/jquery-3.2.1.slim.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dialogbox.js' %}"></script>
     <script type="text/javascript">

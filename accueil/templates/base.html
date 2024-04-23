@@ -11,6 +11,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">    
     <link rel="stylesheet" type="text/css" href="{% static 'css/sidebar.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/dialogbox.css' %}">
+    <link rel="shortcut icon" href="{% static 'img/estore-min.png' %}">
+
 
     <title>e-store - {% block title %}Title Missing{% endblock title %}</title>
 
@@ -26,8 +28,8 @@
             
             <div class="sidebar-header">
                 <!-- <a class="navbar-brand titlefont mr-4" href="{% url 'accueil' %}"><h3>e-store </h3></a> -->
-                <a href="{% url 'accueil' %}" class="text-nowrap logo-img text-center d-block py-3 w-100">
-                  <img src="{% static 'img/estore.png' %}" width="150" alt="estore logo">
+                <a class="navbar-brand titlefont mr-4" href="{% url 'accueil' %}">
+                    <img src="{% static 'img/estore.png' %}" width="150" alt="estore logo">
                 </a>
             </div>
 

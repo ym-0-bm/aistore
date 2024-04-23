@@ -106,7 +106,7 @@ class AchatView(ListView):
     model = FactureAchat
     template_name = "achats/liste_achat.html"
     context_object_name = 'factures'
-    ordering = ['-time']
+    ordering = ['-date']
     paginate_by = 10
 
 

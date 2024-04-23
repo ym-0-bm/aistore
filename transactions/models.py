@@ -4,10 +4,10 @@ from stock.models import Stock
 
 class Fournisseur(models.Model):
     id = models.AutoField(primary_key=True)
-    nom = models.CharField(max_length=150)
+    nom = models.CharField(max_length=100)
     telephone = models.CharField(max_length=12, unique=True)
-    adresse = models.CharField(max_length=200)
-    email = models.EmailField(max_length=254, unique=True)
+    adresse = models.CharField(max_length=150)
+    email = models.EmailField(max_length=100, unique=True)
     gstin = models.CharField(max_length=15, unique=True)
     is_deleted = models.BooleanField(default=False)
 
@@ -68,10 +68,10 @@ class FactureVente(models.Model):
     nofacture = models.AutoField(primary_key=True)
     date = models.DateTimeField(auto_now=True)
 
-    nom = models.CharField(max_length=150)
+    nom = models.CharField(max_length=100)
     telephone = models.CharField(max_length=12)
-    adresse = models.CharField(max_length=200)
-    email = models.EmailField(max_length=254)
+    adresse = models.CharField(max_length=150)
+    email = models.EmailField(max_length=100)
     gstin = models.CharField(max_length=15)
 
     def __str__(self):

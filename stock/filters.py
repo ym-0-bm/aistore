@@ -7,4 +7,4 @@ class StockFilter(django_filters.FilterSet):
 
     class Meta:
         model = Stock
-        fields = ['name']
+        fields = ['nom']
