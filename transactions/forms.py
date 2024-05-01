@@ -28,10 +28,10 @@ class ArticleAchatForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['stock'].queryset = Stock.objects.filter(is_deleted=False)
         self.fields['stock'].widget.attrs.update({'class': 'textinput form-control setprice stock', 'required': 'true'})
-        self.fields['quantité'].widget.attrs.update(
-            {'class': 'textinput form-control setprice quantité', 'min': '0', 'required': 'true'})
+        self.fields['quantite'].widget.attrs.update(
+            {'class': 'textinput form-control prixunitaire quantité', 'min': '0', 'required': 'true'})
         self.fields['prixunitaire'].widget.attrs.update(
-            {'class': 'textinput form-control setprice prix', 'min': '0', 'required': 'true'})
+            {'class': 'textinput form-control prixunitaire prix', 'min': '0', 'required': 'true'})
 
     class Meta:
         model = ArticleAchat
@@ -56,15 +56,15 @@ class FournisseurForm(forms.ModelForm):
             {'class': 'textinput form-control', 'maxlength': '10', 'pattern': '[0-9]{10}',
              'title': 'Chiffres uniquement'})
         self.fields['email'].widget.attrs.update({'class': 'textinput form-control'})
-        self.fields['gstin'].widget.attrs.update(
-            {'class': 'textinput form-control', 'maxlength': '15', 'pattern': '[A-Z0-9]{15}',
-             'title': 'Format GSTIN requis'})
+#        self.fields['gstin'].widget.attrs.update(
+#            {'class': 'textinput form-control', 'maxlength': '15', 'pattern': '[A-Z0-9]{15}',
+#             'title': 'Format GSTIN requis'})
 
     class Meta:
         model = Fournisseur
-        fields = ['nom', 'telephone', 'adresse', 'email', 'gstin']
+        fields = ['nom', 'telephone', 'adresse', 'email']     # , 'gstin'
         widgets = {
-            'adresse': forms.Textarea(
+            'adresse': forms.TextInput(
                 attrs={
                     'class': 'textinput form-control',
                     'rows': '4'
@@ -85,15 +85,15 @@ class VenteForm(forms.ModelForm):
              'title': 'chiffres uniquement',
              'required': 'true'})
         self.fields['email'].widget.attrs.update({'class': 'textinput form-control'})
-        self.fields['gstin'].widget.attrs.update(
-            {'class': 'textinput form-control', 'maxlength': '15', 'pattern': '[A-Z0-9]{15}',
-             'title': 'GSTIN Format Required'})
+#        self.fields['gstin'].widget.attrs.update(
+#            {'class': 'textinput form-control', 'maxlength': '15', 'pattern': '[A-Z0-9]{15}',
+#             'title': 'GSTIN Format Required'})
 
     class Meta:
         model = FactureVente
-        fields = ['nom', 'telephone', 'adresse', 'email', 'gstin']
+        fields = ['nom', 'telephone', 'adresse', 'email']      # , 'gstin'
         widgets = {
-            'address': forms.Textarea(
+            'adresse': forms.TextInput(
                 attrs={
                     'class': 'textinput form-control',
                     'rows': '4'

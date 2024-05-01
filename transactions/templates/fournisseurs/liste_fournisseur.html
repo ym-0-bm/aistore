@@ -3,27 +3,38 @@
 {% load widget_tweaks %}
 
 
-{% block title %} Suppliers List {% endblock title %}
+{% block title %} Liste Fournisseurs {% endblock title %}
 
 
 {% block content %}
     
     <div class="row" style="color: #575757; font-style: bold; font-size: 3rem;">
-        <div class="col-md-8">Suppliers List</div>
-        <div class="col-md-4">       <!-- Log on to codeastro.com for more projects -->        
-            <div style="float:right;"> <a class="btn btn-success" href="{% url 'new-supplier' %}">Add New Supplier</a> </div>
+        <div class="col-md-8">Liste des fournisseurs</div>
+        <div class="col-md-4">               
+            <div style="float:right;"> <a class="btn btn-success" href="{% url 'new-fournisseur' %}">Ajouter</a> </div>
         </div>
     </div>
 
     <br>
 
     <table class="table table-css table-hover table-bordered">
+
+        <form method="get">
+            <div class="input-group search" style="border-radius: 50px;">
+                {% render_field filter.form.nom class="form-control textinput" placeholder="Rechercher par nom de produit" %}
+                <div class="input-group-append">
+                   <button type="submit" class="btn  btn-light"> <i class="fa-solid fa-magnifying-glass"></i> </button>
+                </div>
+            </div>
+        </form>
+
+        <br>
         
         <thead class="thead-dark align-middle">
             <tr>
-                <th width="25%">Name</th>
+                <th width="25%">Nom</th>
                 <th width="20%">Contact</th>
-                <th width="25%">GSTIN No</th>
+                <th width="20%">Adresse</th>
                 <th width="30%">Actions</th>
             </tr>
         </thead>
@@ -31,17 +42,17 @@
 {% if object_list %}
 
         <tbody>
-            {% for supplier in object_list %}
+            {% for fournisseur in object_list %}
             <tr>
-                <td><!-- Log on to codeastro.com for more projects -->
-                    <p> <a href="{% url 'supplier' supplier.name %}">{{ supplier.name }}</a> </p>
+                <td>
+                    <p> <a href="{% url 'fournisseur' fournisseur.nom %}">{{ fournisseur.nom }}</a> </p>
                 </td>
-                <td class="align-middle"> {{ supplier.phone }} </td>
-                <td class="align-middle"> {{ supplier.gstin }} </td>
+                <td class="align-middle"> {{ fournisseur.telephone }} </td>
+                <td class="align-middle"> {{ fournisseur.adresse }} </td>
                 <td class="align-middle">
                     <div class="align-middle">
-                        <a href="{% url 'edit-supplier' supplier.pk %}" class="btn btn-info btn-sm">Edit Details</a>
-                        <a href="{% url 'delete-supplier' supplier.pk %}" class="btn btn-danger btn-sm">Delete Supplier</a>
+                        <a href="{% url 'modif-fournisseur' fournisseur.id %}" class="btn btn-outline-info m-0">Modifier Details</a>
+                        <a href="{% url 'sup-fournisseur' fournisseur.id %}" class="btn btn-outline-danger m-0">Supprimer</a>
                     </div>
                 </td>              
             </tr>
@@ -50,12 +61,12 @@
 
     </table>
 
-    <div class="align-middle"><!-- Log on to codeastro.com for more projects -->
+    <div class="align-middle">
         {% if is_paginated %}
 
             {% if page_obj.has_previous %}
-                <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                <a class="btn btn-outline-info mb-4" href="?page=1">Premier</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Précédent</a>
             {% endif %}
 
             {% for num in page_obj.paginator.page_range %}
@@ -67,8 +78,8 @@
             {% endfor %}
 
             {% if page_obj.has_next %}
-                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
-                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Suivant</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Dernier</a>
             {% endif %}
 
         {% endif %}
@@ -77,10 +88,10 @@
 {% else %}
 
         <tbody></tbody>   
-    </table><!-- Log on to codeastro.com for more projects -->
+    </table>
 
     <br><br><br><br><br><br><br><br>
-    <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">The records are empty. Please try adding some.</div>
+    <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">Le registre est vide. Veuillez essayer d'en ajouter.</div>
 
 {% endif %}
 

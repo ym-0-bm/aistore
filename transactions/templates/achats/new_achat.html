@@ -26,8 +26,8 @@
                         <input type="text" class="form-control textinput" id="id_phone" value="{{ fournisseur.telephone }}" disabled>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="id_gstin" class="panel-body-text">GSTIN No:</label>
-                        <input type="gstin" class="form-control textinput" id="id_gstin" value="{{ supplier.gstin }}" disabled>
+                        <label for="id_gstin" class="panel-body-text">Adresse:</label>
+                        <input type="gstin" class="form-control textinput" id="id_gstin" value="{{ fournisseur.adresse }}" disabled>
                     </div>
                 </div>
 
@@ -47,13 +47,13 @@
                     <div class="panel-body">
                     {% for form in formset %}
                         <div class="row form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 {{ form.stock.errors }}
-                                <label class="panel-body-text">Stock:</label>
+                                <label class="panel-body-text">Produit:</label>
                                 {{ form.stock }}
                             </div>
                             <div class="form-group col-md-2">
-                                <label class="panel-body-text">Prix unitaire de l'article :</label>
+                                <label class="panel-body-text">Prix d'achat :</label>
                                 {{form.prixunitaire}}
                             </div>
                             <div class="form-group col-md-2">
@@ -61,9 +61,9 @@
                                 <label class="panel-body-text">Quantité:</label>
                                 {{ form.quantite }}
                             </div>
-                            <div class="form-group col-md-1">
-                                <label class="panel-body-text">Prix:</label>
-                                <input type="text" class="textinput form-control totalprice" value="1" disabled required>
+                            <div class="form-group col-md-3">
+                                <label class="panel-body-text">Montant:</label>
+                                <input type="text" class="textinput form-control montant" disabled required>
                             </div>
                             <div class="form-group col-md-1">
                                 <label class="panel-body-text" style="color: #000">.</label>
@@ -72,7 +72,7 @@
                         </div>
                     {% endfor %}
                         <div style="text-align: right;">                    
-                            <a href="#" class="add-form-row">+ Ajouter plus</a>
+                            <a href="#" class="add-form-row btn-link m-1">+ Ajouter plus</a>
                         </div>
                     </div>
                 </div>
@@ -81,9 +81,9 @@
             <br>
 
             <div class="align-middle">
-                <button type="submit" class="btn btn-success">Add to Purchases</button>
-                <a href="{% url 'select-supplier' %}" class="btn btn-danger">Go Back</a>
-                <a href="{% url 'purchases-list' %}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-success">Ajouter aux Approvisionnements</button>
+                <a href="{% url 'select-fournisseur' %}" class="btn btn-danger">Retour</a>
+                <a href="{% url 'achats-list' %}" class="btn btn-secondary">Annuler</a>
             </div>
             
         </form>
@@ -145,7 +145,7 @@
                 }
                 total--;
             } else {
-                custom_alert.render("Field cannot be deleted");
+                custom_alert.render("Le champ ne peut pas être supprimé ");
             }
             return false;
         }
@@ -163,20 +163,28 @@
         });
 
 
-        //updates the total price by multiplying 'price per item' and 'quantity' 
-        $(document).on('change', '.setprice', function(e){
+        //updates the total price by multiplying 'prix unitaire par produit' and 'quantité' 
+        $(document).on('change', '.prixunitaire, .quantite', function(e){
             e.preventDefault();
             //gets the values
-            var element = $(this);
-            var quantity = element.parents('.form-row').find('.quantity').val();
-            var perprice = element.parents('.form-row').find('.price').val();
-            //calculates the total
-            var tprice = quantity * perprice;
-            //sets it to field
-            element.parents('.form-row').find('.totalprice').val(tprice);
+            var formRow = $(this).closest('.form-row');
+            var quantite = formRow.find('.quantite').val();
+            var prixunitaire = formRow.find('.prixunitaire').val();
+            console.log("Quantité: ", quantite); // log the value of quantite
+            console.log("Prix unitaire: ", prixunitaire); // log the value of prixunitaire
+            //check if the values are numbers
+            if(!isNaN(quantite) && !isNaN(prixunitaire)){
+                //calculates the total
+                var montant = quantite * prixunitaire;
+                //sets it to field
+                formRow.find('.montant').val(montant);
+            } else {
+                formRow.find('.montant').val("Erreur : Les valeurs entrées ne sont pas des nombres");
+            }
             return false;
         });
-
+        
+        
     </script>
 
 {% endblock content %}

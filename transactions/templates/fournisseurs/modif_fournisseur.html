@@ -13,48 +13,44 @@
         {% csrf_token %}
         {{ form.non_field_errors }}
         
-        {{ form.name.errors }}
-        {{ form.phone.errors }}
-        {{ form.address.errors }}
+        {{ form.nom.errors }}
+        {{ form.telephone.errors }}
+        {{ form.adresse.errors }}
         {{ form.email.errors }}
         {{ form.gstin.errors }}
 
         <div class="form-group">
-            <label for="{{ form.name.id_for_label }}">Name:</label>
-            {{ form.name }}
+            <label for="{{ form.nom.id_for_label }}">Nom:</label>
+            {{ form.nom }}
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-6">
-                <label for="{{ form.phone.id_for_label }}">Phone No:</label>
-                {{ form.phone }}
+                <label for="{{ form.telephone.id_for_label }}">Telephone No:</label>
+                {{ form.telephone }}
             </div>
             <div class="form-group col-md-6">
-                <label for="{{ form.email.id_for_label }}">Email ID:</label>
+                <label for="{{ form.email.id_for_label }}">Email:</label>
                 {{ form.email }}
             </div>
         </div>
 
         <div class="form-group">
-            <label for="{{ form.address.id_for_label }}">Address:</label>
-            {{ form.address }}
-        </div>
-        <div class="form-group">
-            <label for="{{ form.gstin.id_for_label }}">GSTIN No:</label>
-            {{ form.gstin }}
+            <label for="{{ form.adresse.id_for_label }}">adresse:</label>
+            {{ form.adresse }}
         </div>
 
         <br>
 
         <div class="align-middle">
             <button type="submit" class="btn btn-success">{{ savebtn }}</button>
-            {% if title == "New Supplier" %}
-                <button type="reset" class="btn btn-danger" >Reset</button>
+            {% if title == "Nouveau Fournisseur" %}
+                <button type="reset" class="btn btn-danger" >Réinitialiser</button>
             {% endif %}
             {% if delbtn %}
-                <a href="{% url 'delete-supplier' supplier.pk %}" class="btn btn-danger"> Delete Supplier </a>
+                <a href="{% url 'sup-fournisseur' fournisseur.id %}" class="btn btn-danger"> Supprimer Fournisseur </a>
             {% endif %}
-            <a href="{% url 'suppliers-list' %}" class="btn btn-secondary">Cancel</a>
+            <a href="{% url 'fournisseurs-list' %}" class="btn btn-secondary">Annuler</a>
         </div>
         
     </form>

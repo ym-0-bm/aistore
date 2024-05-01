@@ -2,28 +2,27 @@
 
 
 {% block title %}
-  {{ supplier.name }}'s profile
+  {{ fournisseur.name }}'s profile
 {% endblock %}
 
 
 {% block content %}
 
     <div class="content-section">
-        <div class="media"><!-- Log on to codeastro.com for more projects -->
+        <div class="media">
             <div class="media-body">
-                <h2 style="color:#575757;" class="account-heading">&nbsp;{{ supplier.name }}</h2>
-                <a href="{% url 'edit-supplier' supplier.pk %}" class="btn btn-info" style="float: right;">Edit Details</a>
+                <h2 style="color:#575757;" class="account-heading">&nbsp;{{ fournisseur.nom }}</h2>
+                <a href="{% url 'modif-fournisseur' fournisseur.id %}" class="btn btn-info" style="float: right;">Modifier Details</a>
                 <div class="row">
                     <div class="col-md-6">
                         <p class="fal">
-                            <b>Contact &nbsp; &nbsp;&nbsp; :</b> {{ supplier.phone }} <br>
-                            <b>Email Id &nbsp;&nbsp;&nbsp;&nbsp; :</b> {{ supplier.email }} <br>
-                            <b>GSTIN No &nbsp; :</b> {{ supplier.gstin }} <br>
+                            <b>Contact :</b> {{ fournisseur.telephone|linebreaks }}
+                            <b>Email :</b> {{ fournisseur.email |linebreaks }}
                         </p>
                     </div>
                     <div class="col-md-6">
                         <p class="fal">
-                            <b>Address:</b> <br> {{ supplier.address|linebreaks }}
+                            <b>Adresse :</b> <br> {{ fournisseur.adresse|linebreaks }}
                         </p>
                     </div>
                 </div>
@@ -37,53 +36,53 @@
         
         <thead class="thead-dark align-middle">
             <tr>
-                <th width="10%">Bill No.</th>
-                <th width="15%">Stocks</th>
-                <th width="15%">Quantity</th>
-                <th width="15%">Total Purchased Price</th>
-                <th width="15%">Purchased Date</th>
+                <th width="10%">No Facture</th>
+                <th width="15%">Produit</th>
+                <th width="15%">Quantité</th>
+                <th width="15%">Montant Total</th>
+                <th width="15%">Date</th>
                 <th width="30%">Actions</th>
-            </tr><!-- Log on to codeastro.com for more projects -->
+            </tr>
         </thead>
       
         <tbody>
-            {% for purchase in bills %}
+            {% for achat in factures %}
             <tr>
-                <td class="align-middle"> <p>{{ purchase.billno }}</p> </td>
-                <td class="align-middle">{% for item in purchase.get_items_list %} {{ item.stock.name }} <br> {% endfor %}</td>
-                <td class="align-middle">{% for item in purchase.get_items_list %} {{ item.quantity }} <br> {% endfor %}</td>     
-                <td class="align-middle">${{ purchase.get_total_price }}</td>
-                <td class="align-middle">{{ purchase.time.date }}</td>
-                <td class="align-middle"> <a href="{% url 'purchase-bill' purchase.billno %}" class="btn btn-secondary">View Bill</a> <a href="{% url 'delete-purchase' purchase.pk %}" class="btn btn-danger">Delete Bill</a> </td>
-            </tr><!-- Log on to codeastro.com for more projects -->
+                <td class="align-middle"> <p>{{ achat.nofacture }}</p> </td>
+                <td class="align-middle">{% for article in achat.get_items_list %} {{ article.stock.nom }} <br> {% endfor %}</td>
+                <td class="align-middle">{% for article in achat.get_items_list %} {{ article.quantite }} <br> {% endfor %}</td>     
+                <td class="align-middle">{{ achat.get_total_price }}<small style="color: #909494">FCFA</small></td>
+                <td class="align-middle">{{ achat.date.date|date:"d/m/Y" }}</td>
+                <td class="align-middle"> <a href="{% url 'achats-facture' achat.nofacture %}" class="btn btn-outline-info btn-sm">Voir Facture</a> <a href="{% url 'sup-achats' achat.nofacture %}" class="btn btn-outline-danger btn-sm ">Supprimer</a> </td>
+            </tr>
             {% endfor %}
         </tbody>
 
     </table>
 
     <div class="align-middle">
-        {% if bills.has_other_pages %}
+        {% if factures.has_other_pages %}
 
-            {% if bills.has_previous %}
+            {% if factures.has_previous %}
                 <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-                <a class="btn btn-outline-info mb-4" href="?page={{ bills.previous_page_number }}">Previous</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ factures.previous_page_number }}">Previous</a>
             {% endif %}
 
-            {% for num in bills.paginator.page_range %}
-                {% if bills.number == num %}
+            {% for num in factures.paginator.page_range %}
+                {% if factures.number == num %}
                     <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-                {% elif num > bills.number|add:'-3' and num < bills.number|add:'3' %}
+                {% elif num > factures.number|add:'-3' and num < factures.number|add:'3' %}
                     <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
                 {% endif %}
             {% endfor %}
 
-            {% if bills.has_next %}
-                <a class="btn btn-outline-info mb-4" href="?page={{ bills.next_page_number }}">Next</a>
-                <a class="btn btn-outline-info mb-4" href="?page={{ bills.paginator.num_pages }}">Last</a>
+            {% if factures.has_next %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ factures.next_page_number }}">Next</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ factures.paginator.num_pages }}">Last</a>
             {% endif %}
 
         {% endif %}
-    </div><!-- Log on to codeastro.com for more projects -->
+    </div>
 
 </div>
 

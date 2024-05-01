@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from django.views.generic import (
     View,
     ListView,
@@ -28,6 +29,8 @@ from .forms import (
     DetailsVenteForm
 )
 from stock.models import Stock
+from django_filters.views import FilterView
+from .filters import AchatFilter
 
 
 class FournisseurListView(ListView):
@@ -41,7 +44,7 @@ class FournisseurListView(ListView):
 class FournisseurCreateView(SuccessMessageMixin, CreateView):
     model = Fournisseur
     form_class = FournisseurForm
-    success_url = '/transactions/fournisseurs'
+    success_url = '/fournisseurs'
     success_message = "Supplier has been created successfully"
     template_name = "fournisseurs/modif_fournisseur.html"
 
@@ -55,9 +58,13 @@ class FournisseurCreateView(SuccessMessageMixin, CreateView):
 class FournisseurUpdateView(SuccessMessageMixin, UpdateView):
     model = Fournisseur
     form_class = FournisseurForm
-    success_url = '/transactions/fournisseurs'
+    success_url = '/fournisseurs'
     success_message = "Detail fournisseur a été ajouté avec succès"
     template_name = "fournisseurs/modif_fournisseur.html"
+
+    def get_object(self, queryset=None):
+        id = self.kwargs.get('id')
+        return get_object_or_404(Fournisseur, id=id)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -75,7 +82,7 @@ class FournisseurDeleteView(View):
         fournisseur = get_object_or_404(Fournisseur, id=id)
         return render(request, self.template_name, {'object': fournisseur})
 
-    def post(self, request, pk):
+    def post(self, request, id):
         fournisseur = get_object_or_404(Fournisseur, id=id)
         fournisseur.is_deleted = True
         fournisseur.save()
@@ -84,8 +91,8 @@ class FournisseurDeleteView(View):
 
 
 class FournisseurView(View):
-    def get(self, request, name):
-        fournisseurobj = get_object_or_404(Fournisseur, name=name)
+    def get(self, request, nom):
+        fournisseurobj = get_object_or_404(Fournisseur, nom=nom)
         facture_list = FactureAchat.objects.filter(fournisseur=fournisseurobj)
         page = request.GET.get('page', 1)
         paginator = Paginator(facture_list, 10)
@@ -102,9 +109,11 @@ class FournisseurView(View):
         return render(request, 'fournisseurs/fournisseur.html', context)
 
 
-class AchatView(ListView):
+class AchatView(ListView, FilterView):
     model = FactureAchat
     template_name = "achats/liste_achat.html"
+    filterset_class = AchatFilter
+    queryset = FactureAchat.objects.filter()
     context_object_name = 'factures'
     ordering = ['-date']
     paginate_by = 10
@@ -123,7 +132,7 @@ class FournisseurSelectView(View):
         if form.is_valid():
             fournisseurid = request.POST.get("fournisseur")
             fournisseur = get_object_or_404(Fournisseur, id=fournisseurid)
-            return redirect('new-purchase', fournisseur.id)
+            return redirect('new-achats', fournisseur.id)
         return render(request, self.template_name, {'form': form})
 
 
@@ -157,7 +166,7 @@ class AchatCreateView(View):
                 stock.save()
                 articlefacture.save()
             messages.success(request, "Les articles achetés ont été enregistrés avec succès")
-            return redirect('purchase-facture', nofacture=factureobj.nofacture)
+            return redirect('fournisseur-facture', nofacture=factureobj.nofacture)
         formset = ArticleAchatFormset(request.GET or None)
         context = {
             'formset': formset,
@@ -169,7 +178,7 @@ class AchatCreateView(View):
 class SupAchatView(SuccessMessageMixin, DeleteView):
     model = FactureAchat
     template_name = "achats/sup_achat.html"
-    success_url = '/transactions/achats'
+    success_url = '/achats'
 
     def delete(self, *args, **kwargs):
         self.object = self.get_object()
@@ -186,8 +195,8 @@ class SupAchatView(SuccessMessageMixin, DeleteView):
 class VenteView(ListView):
     model = FactureVente
     template_name = "ventes/liste_vente.html"
-    context_object_name = 'bills'
-    ordering = ['-time']
+    context_object_name = 'factures'
+    ordering = ['-date']
     paginate_by = 10
 
 
@@ -211,18 +220,18 @@ class VenteCreateView(View):
         if form.is_valid() and formset.is_valid():
             factureobj = form.save(commit=False)
             factureobj.save()
-            detailsfactureobj = DetailsFactureVente(nofacture=nofacture)
+            detailsfactureobj = DetailsFactureVente(nofacture=factureobj)
             detailsfactureobj.save()
             for form in formset:
                 articlefacture = form.save(commit=False)
-                articlefacture.billno = factureobj
+                articlefacture.nofacture = factureobj
                 stock = get_object_or_404(Stock, nom=articlefacture.stock.nom)
                 articlefacture.montant = articlefacture.prixunitaire * articlefacture.quantite
                 stock.quantite -= articlefacture.quantite
                 stock.save()
                 articlefacture.save()
             messages.success(request, "Les articles vendus ont été enregistrés avec succès")
-            return redirect('sale-facture', nofacture=factureobj.nofacture)
+            return redirect('ventes-facture', nofacture=factureobj.nofacture)
         form = VenteForm(request.GET or None)
         formset = ArticleVenteFormset(request.GET or None)
         context = {
@@ -235,7 +244,7 @@ class VenteCreateView(View):
 class SupVenteView(SuccessMessageMixin, DeleteView):
     model = FactureVente
     template_name = "ventes/sup_vente.html"
-    success_url = '/transactions/ventes'
+    success_url = '/ventes'
 
     def delete(self, *args, **kwargs):
         self.object = self.get_object()
@@ -246,7 +255,7 @@ class SupVenteView(SuccessMessageMixin, DeleteView):
                 stock.quantite += article.quantity
                 stock.save()
         messages.success(self.request, "La facture de vente a été supprimée avec succès")
-        return super(SupVenteView, self).delete(*args, **kwargs)
+        return super().delete(*args, **kwargs)
 
 
 class FactureAchatView(View):

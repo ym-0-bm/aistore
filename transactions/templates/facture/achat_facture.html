@@ -1,15 +1,14 @@
-{% extends bill_base %}
+{% extends facture_base %}
 {% load static %}
 
 
-{% block title %} Purchases Bill No : {{ bill.billno }}{% endblock title %}
+{% block title %} No Facture Achats : {{ facture.nofacture }}{% endblock title %}
 
 
 {% block content %}
 
-    <div style="color:#575757; font-style: bold; font-size: 3rem;  border-bottom: 1px solid white;">Purchase Bill No : {{ bill.billno }}</div>
+    <div style="color:#575757; font-style: bold; font-size: 3rem;  border-bottom: 1px solid white;">Achat facture No : {{ facture.nofacture }}</div>
 
-    <!-- <br><br> --><!-- Log on to codeastro.com for more projects -->
     
     <form method="post">
     {% csrf_token %}
@@ -24,16 +23,16 @@
                     <tbody>
                         
                         <tr style="height: 1px;">
-                            <td> <p style="text-align: center;">TAX INVOICE - PURCHASE</p> </td>
+                            <td> <p style="text-align: center;">FACTURE FISCALE - Achat</p> </td>
                         </tr>
                         
                         <tr style="text-align: center;">
                             <td >
-                                <span style="font-size: 350%;">DJANGOIMS</span> <br>
+                                <span style="font-size: 350%;">e-store</span> <br>
                                 <span style="font-size: 120%; font-weight: bold;">DEALERS IN : Products</span> <br>
                                 <span style="font-weight: bold;">REGD ADDRESS :</span> 971 Center Street<br>Umatilla, OR 97882<br>
                                 <span style="font-weight: bold;">EMAIL : djangoims@mail.com</span> <br><br>
-                            </td><!-- Log on to codeastro.com for more projects -->
+        
                         </tr>
                         
                         <tr>
@@ -46,38 +45,38 @@
                                     <tr>
                                         <td class="inner-box" style="width: 50%; font-weight: bold;">&nbsp;NAME OF CONSIGNEE / BUYER</td>
                                         <td class="inner-box" style="width: 25%; font-weight: bold;">&nbsp;INVOICE NO</td>
-                                        <td class="inner-box" style="width: 25%;">&nbsp;{{ bill.billno }}</td>
+                                        <td class="inner-box" style="width: 25%;">&nbsp;{{ facture.nofacture }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="inner-box" style="width: 50%;">&nbsp;{{ bill.supplier.name }}</td>
+                                        <td class="inner-box" style="width: 50%;">&nbsp;{{ facture.fournisseur.nom }}</td>
                                         <td class="inner-box" style="width: 25%; font-weight: bold;">&nbsp;DATE</td>
-                                        <td class="inner-box" style="width: 25%;">&nbsp;{{ bill.time.date }}</td>
+                                        <td class="inner-box" style="width: 25%;">&nbsp;{{ facture.date.date }}</td>
                                     </tr>
-                                    <tr><!-- Log on to codeastro.com for more projects -->
-                                        <td class="inner-box" style="width: 50%;" rowspan="3">{{ bill.supplier.address|linebreaks }}</td>
+                
+                                        <td class="inner-box" style="width: 50%;" rowspan="3">{{ facture.fournisseur.adresse|linebreaks }}</td>
                                         <td class="inner-box" style="width: 25%; font-weight: bold;">&nbsp;EWAY NO</td>
-                                        <td class="inner-box align-middle" style="width: 25%;"> <input type="text" name="eway" class="align-middle" style="border: 0; overflow: hidden;" value="{% if billdetails.eway %}{{ billdetails.eway }}{% endif %}"> </td>
+                                        <td class="inner-box align-middle" style="width: 25%;"> <input type="text" name="eway" class="align-middle" style="border: 0; overflow: hidden;" value="{% if facturedetails.eway %}{{ facturedetails.eway }}{% endif %}"> </td>
                                     </tr>
                                     <tr>
                                         <td class="inner-box" style="width: 25%; font-weight: bold;">&nbsp;VEH NO</td>
-                                        <td class="inner-box align-middle" style="width: 25%;"> <input type="text" name="veh" class="align-middle" style="border: 0; overflow: hidden;" value="{% if billdetails.veh %}{{ billdetails.veh }}{% endif %}"> </td>
+                                        <td class="inner-box align-middle" style="width: 25%;"> <input type="text" name="veh" class="align-middle" style="border: 0; overflow: hidden;" value="{% if facturedetails.veh %}{{ facturedetails.veh }}{% endif %}"> </td>
                                     </tr>
                                     <tr>
                                         <td class="inner-box" style="width: 25%; font-weight: bold;">&nbsp;DESTINATION</td>
-                                        <td class="inner-box align-middle" style="width: 25%;"> <input type="text" name="destination" class="align-middle" style="border: 0; overflow: hidden;" value="{% if billdetails.destination %}{{ billdetails.destination }}{% endif %}"> </td>
+                                        <td class="inner-box align-middle" style="width: 25%;"> <input type="text" name="destination" class="align-middle" style="border: 0; overflow: hidden;" value="{% if facturedetails.destination %}{{ facturedetails.destination }}{% endif %}"> </td>
                                     </tr>
                                     <tr>
-                                        <td class="inner-box" style="font-weight: bold;">&nbsp;GSTIN No : {{ bill.supplier.gstin }}</td>
+                                        <td class="inner-box" style="font-weight: bold;">&nbsp;GSTIN No : {{ facture.fournisseur.gstin }}</td>
                                         <td class="inner-box" style="width: 25%; font-weight: bold;">&nbsp;PO NO &amp; DATE</td>
-                                        <td class="inner-box align-middle" style="width: 25%;"> <input type="text" name="po" class="align-middle" style="border: 0; overflow: hidden;" value="{% if billdetails.po %}{{ billdetails.po }}{% endif %}"> </td>
-                                    </tr><!-- Log on to codeastro.com for more projects -->
+                                        <td class="inner-box align-middle" style="width: 25%;"> <input type="text" name="po" class="align-middle" style="border: 0; overflow: hidden;" value="{% if facturedetails.po %}{{ facturedetails.po }}{% endif %}"> </td>
+                
                                 </tbody>
                             </table>
                             </td>
                         </tr>
                         
                         <tr>
-                            <td><!-- Log on to codeastro.com for more projects -->
+        
                             <table class="outer-box" style="width: 800px; margin-left: auto; margin-right: auto;">
                                 <tbody>
                                     <tr>
@@ -89,14 +88,14 @@
                                         <td class="inner-box" style="width: 12%; font-weight: bold; text-align: center;">AMOUNT $</td>
                                         <td class="inner-box" style="width: 05%; font-weight: bold; text-align: center;">PS</td>
                                     </tr>
-                                    {% for item in items %}
+                                    {% for article in articles %}
                                         <tr style="height: auto;">
                                             <td class="inner-box" style="width: 5%;">&nbsp; {{ forloop.counter }}</td>
-                                            <td class="inner-box" style="width: 30%;">&nbsp; {{ item.stock.name }}</td>
+                                            <td class="inner-box" style="width: 30%;">&nbsp; {{ article.stock.name }}</td>
                                             <td class="inner-box" style="width: 12%;">&nbsp;</td>
-                                            <td class="inner-box" style="width: 12%;">&nbsp; {{ item.quantity }}</td>
-                                            <td class="inner-box" style="width: 12%;">&nbsp; {{ item.perprice }}</td>
-                                            <td class="inner-box" style="width: 12%;">&nbsp;{{ item.totalprice }}</td>
+                                            <td class="inner-box" style="width: 12%;">&nbsp; {{ article.quantite }}</td>
+                                            <td class="inner-box" style="width: 12%;">&nbsp; {{ article.prixunitaire }}</td>
+                                            <td class="inner-box" style="width: 12%;">&nbsp;{{ article.montant }}</td>
                                             <td class="inner-box" style="width: 5%;">&nbsp;0</td>
                                         </tr>
                                     {% endfor %}
@@ -115,27 +114,27 @@
                                                 WestView Bank <br> AC NO-54A7 6S31 4T85 0RO3 <br> IFSC CODE - ABCD 010 0110 <br> CS BRANCH <br> PH NO - 541-010-0400</p>
                                         </td>
                                         <td class="inner-box" style="width: 30%; font-weight: bold;">&nbsp;CGST @ 2.5%</td>
-                                        <td class="inner-box align-middle" style="width: 30%;">&nbsp; <input type="text" name="cgst" class="align-middle" pattern="[0-9]+\.[0-9]+" style="border: 0; overflow: hidden;" value="{% if billdetails.cgst %}{{ billdetails.cgst }}{% endif %}"></td>
+                                        <td class="inner-box align-middle" style="width: 30%;">&nbsp; <input type="text" name="cgst" class="align-middle" pattern="[0-9]+\.[0-9]+" style="border: 0; overflow: hidden;" value="{% if facturedetails.cgst %}{{ facturedetails.cgst }}{% endif %}"></td>
                                     </tr>
                                     <tr>
                                         <td class="inner-box" style="font-weight: bold;">&nbsp;SGST @ 2.5%</td>
-                                        <td class="inner-box align-middle">&nbsp; <input type="text" name="sgst" class="align-middle" pattern="[0-9]+\.[0-9]+" style="border: 0; overflow: hidden;" value="{% if billdetails.sgst %}{{ billdetails.sgst }}{% endif %}"></td>
+                                        <td class="inner-box align-middle">&nbsp; <input type="text" name="sgst" class="align-middle" pattern="[0-9]+\.[0-9]+" style="border: 0; overflow: hidden;" value="{% if facturedetails.sgst %}{{ facturedetails.sgst }}{% endif %}"></td>
                                     </tr>
                                     <tr>
                                         <td class="inner-box" style="font-weight: bold;">&nbsp;IGST @ 5% </td>
-                                        <td class="inner-box align-middle">&nbsp; <input type="text" name="igst" class="align-middle" pattern="[0-9]+\.[0-9]+" style="border: 0; overflow: hidden;" value="{% if billdetails.igst %}{{ billdetails.igst }}{% endif %}"></td>
+                                        <td class="inner-box align-middle">&nbsp; <input type="text" name="igst" class="align-middle" pattern="[0-9]+\.[0-9]+" style="border: 0; overflow: hidden;" value="{% if facturedetails.igst %}{{ facturedetails.igst }}{% endif %}"></td>
                                     </tr>
-                                    <tr><!-- Log on to codeastro.com for more projects -->
+                
                                         <td class="inner-box" style="font-weight: bold;">&nbsp;CESS @ 400/PMT </td>
-                                        <td class="inner-box align-middle">&nbsp; <input type="text" name="cess" class="align-middle" pattern="[0-9]+\.[0-9]+" style="border: 0; overflow: hidden;" value="{% if billdetails.cess %}{{ billdetails.cess }}{% endif %}"></td>
+                                        <td class="inner-box align-middle">&nbsp; <input type="text" name="cess" class="align-middle" pattern="[0-9]+\.[0-9]+" style="border: 0; overflow: hidden;" value="{% if facturedetails.cess %}{{ facturedetails.cess }}{% endif %}"></td>
                                     </tr>
                                     <tr>
                                         <td class="inner-box" style="font-weight: bold;">&nbsp;TCS @ 1%</td>
-                                        <td class="inner-box align-middle">&nbsp; <input type="text" name="tcs" class="align-middle" pattern="[0-9]+\.[0-9]+" style="border: 0; overflow: hidden;" value="{% if billdetails.tcs %}{{ billdetails.tcs }}{% endif %}"></td>
+                                        <td class="inner-box align-middle">&nbsp; <input type="text" name="tcs" class="align-middle" pattern="[0-9]+\.[0-9]+" style="border: 0; overflow: hidden;" value="{% if facturedetails.tcs %}{{ facturedetails.tcs }}{% endif %}"></td>
                                     </tr>
                                     <tr>
                                         <td class="inner-box" style="font-weight: bold;">&nbsp;TOTAL</td>
-                                        <td class="inner-box align-middle">&nbsp; <input type="text" name="total" class="align-middle" pattern="[0-9]+\.[0-9]+" style="border: 0; overflow: hidden;" value="{% if billdetails.total %}{{ billdetails.total }}{% endif %}"> </td>
+                                        <td class="inner-box align-middle">&nbsp; <input type="text" name="total" class="align-middle" pattern="[0-9]+\.[0-9]+" style="border: 0; overflow: hidden;" value="{% if facturedetails.total %}{{ facturedetails.total }}{% endif %}"> </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -159,17 +158,16 @@
 
             </div>
 
-            <!-- <br><br> --><!-- Log on to codeastro.com for more projects -->
+    
 
         </div>
 
         <br><br>
 
         <div class="wrapper">
-            <button class="center btn btn-primary" onclick="printpage('printArea')">Print</button>
-            <button class="center btn btn-success" type="submit">Save Draft</button>
-            <a href="{% url 'purchases-list' %}" class=" btn center btn-secondary">Go Back</a>
-        </div><!-- Log on to codeastro.com for more projects -->
+            <button class="center btn btn-primary" onclick="printpage('printArea')">Imprimer</button>
+            <button class="center btn btn-success" type="submit">Enregistrer</button>
+            <a href="{% url 'achats-list' %}" class=" btn center btn-secondary">Retour</a>
 
     </form>
 

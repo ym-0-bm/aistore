@@ -11,13 +11,24 @@
     <div class="row" style="color: #575757; font-style: bold; font-size: 3rem;">
         <div class="col-md-8">Liste des achats</div>
         <div class="col-md-4">
-            <div style="float:right;"> <a class="btn btn-success" href="{% url 'select-fournisseur' %}">Nouvel Achat</a> </div>
+            <div style="float:right;"> <a class="btn btn-success" href="{% url 'select-fournisseur' %}">Ajouter</a> </div>
         </div>
     </div>
 
     <br>
 
     <table class="table table-css table-hover table-bordered">
+
+        <form method="get">
+            <div class="input-group search" style="border-radius: 50px;">
+                {% render_field filter.form.stock class="form-control textinput" placeholder="Rechercher par nom de produit" %}
+                <div class="input-group-append">
+                   <button type="submit" class="btn  btn-light"> <i class="fa-solid fa-magnifying-glass"></i> </button>
+                </div>
+            </div>
+        </form>
+
+        <br>
 
         <thead class="thead-dark align-middle">
             <tr>
@@ -47,40 +58,43 @@
                 </td>
                 <td class="align-middle">{% for article in achat.get_items_list %} {{ article.stock.nom }} <br> {% endfor %}</td>
                 <td class="align-middle">{% for article in achat.get_items_list %} {{ article.quantite }} <br> {% endfor %}</td>
-                <td class="align-middle">${{ achat.get_total_price }}</td>
-                <td class="align-middle">{{ achat.date.date }}</td>
-                <td class="align-middle"> <a href="{% url 'achat-facture' achat.nofacture %}" class="btn btn-secondary btn-sm">Voir Facture</a> <a href="{% url 'sup-achats' achat.id %}" class="btn btn-danger btn-sm">Supprimer Facture</a> </td>
+                <td class="align-middle">{{ achat.get_total_price }} <small style="color: #909494">FCFA</small></td>
+                <td class="align-middle">{{ achat.date.date|date:"d/m/Y" }}</td>
+                <td class="align-middle">
+                    <a href="{% url 'achat-facture' achat.nofacture %}" class="btn btn-outline-info btn-sm">Voir Facture</a>
+                    <a href="{% url 'sup-achats' achat.nofacture %}" class="btn btn-outline-danger btn-sm">Supprimer</a>
+                </td>
             </tr>
             {% endfor %}
         </tbody>
 
     </table>
+    <table>
+        <div class="align-middle">
+            {% if is_paginated %}
 
-    <div class="align-middle">
-        {% if is_paginated %}
-
-            {% if page_obj.has_previous %}
-                <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
-                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
-            {% endif %}
-
-            {% for num in page_obj.paginator.page_range %}
-                {% if page_obj.number == num %}
-                    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
-                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% if page_obj.has_previous %}
+                    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
                 {% endif %}
-            {% endfor %}
 
-            {% if page_obj.has_next %}
-                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
-                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                {% endif %}
+
             {% endif %}
+        </div>
 
-        {% endif %}
-    </div>
-
-{% else %}
+    {% else %}
 
         <tbody></tbody>
     </table>

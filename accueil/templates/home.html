@@ -20,7 +20,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <a href="{% url 'select-fournisseur' %}" class="btn btn-success btn-lg btn-block btn-huge">Nouveau Achat</a>
+            <a href="{% url 'select-fournisseur' %}" class="btn btn-success btn-lg btn-block btn-huge">Nouvel Approvisionnement</a>
         </div>
         <div class="col-md-6">
             <a href="{% url 'new-ventes' %}" class="btn btn-success btn-lg btn-block btn-huge">Nouvelle Vente</a>
@@ -50,7 +50,7 @@
             </div>
 
             <div class="col-md-6">
-                <div style="color: #4e6570; font-style: bold; font-size: 1.3em; border-bottom: 2px solid #4e6570">Achats récents</div><br>
+                <div style="color: #4e6570; font-style: bold; font-size: 1.3em; border-bottom: 2px solid #4e6570">Approvisionnements récents</div><br>
                 {% for item in purchases %}
                     {% if not forloop.first %}
                         <br><div style="border-bottom: 0.5px solid #4e6570"></div><br>

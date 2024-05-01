@@ -8,7 +8,7 @@ class Fournisseur(models.Model):
     telephone = models.CharField(max_length=12, unique=True)
     adresse = models.CharField(max_length=150)
     email = models.EmailField(max_length=100, unique=True)
-    gstin = models.CharField(max_length=15, unique=True)
+#    gstin = models.CharField(max_length=15, unique=True)
     is_deleted = models.BooleanField(default=False)
 
     def __str__(self):
@@ -72,7 +72,7 @@ class FactureVente(models.Model):
     telephone = models.CharField(max_length=12)
     adresse = models.CharField(max_length=150)
     email = models.EmailField(max_length=100)
-    gstin = models.CharField(max_length=15)
+#    gstin = models.CharField(max_length=15)
 
     def __str__(self):
         return "No Facture: " + str(self.nofacture)

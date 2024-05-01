@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/sidebar.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/dialogbox.css' %}">
     <link rel="shortcut icon" href="{% static 'img/estore-min.png' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.min.css' %}" />
 
 
     <title>e-store - {% block title %}Title Missing{% endblock title %}</title>
@@ -19,13 +20,23 @@
 </head>
 <body>
 
+    <div id="dialogoverlay"></div>
+    <div id="dialogbox">
+        <div class="align-middle">
+            <div id="dialogboxhead"></div>
+            <div id="dialogboxbody"></div>
+            <div id="dialogboxfoot"></div>
+        </div>
+    </div>
 
     <main id="wrapper">
     
     {% if user.is_authenticated %}
-    
+
+        {# {% include 'sidebar.html' %} #}
+
         <nav id="sidebar">
-            
+
             <div class="sidebar-header">
                 <!-- <a class="navbar-brand titlefont mr-4" href="{% url 'accueil' %}"><h3>e-store </h3></a> -->
                 <a class="navbar-brand titlefont mr-4" href="{% url 'accueil' %}">
@@ -34,14 +45,14 @@
             </div>
 
             <ul class="list-unstyled sidebar-components">
-                <li> 
+                <li>
                     <a class="sidebar-text sidebar-button" href="{% url 'accueil' %}"><i class="fas fa-home"></i> Dashboard</a>
-                </li>               
+                </li>
                 <li>
                     <a href="{% url 'stock' %}" class="sidebar-text sidebar-button"><i class="fas fa-boxes"></i> Stocks</a>
                 </li>
                 <li>
-                    <a href="{% url 'achats-list' %}"  class="sidebar-text sidebar-button"><i class="fas fa-cash-register"></i> Achats</a>
+                    <a href="{% url 'achats-list' %}"  class="sidebar-text sidebar-button"><i class="fas fa-cash-register"></i> Approvisionnement</a>
                 </li>
                 <li>
                     <a href="{% url 'ventes-list' %}" class="sidebar-text sidebar-button"><i class="fas fa-dollar-sign"></i> Ventes</a>
@@ -76,7 +87,7 @@
             {% endcomment %}
 
         </nav>
-    
+
         <div id="content">
 
             <div class="row">
@@ -105,6 +116,15 @@
     <script src="{% static 'bootstrap/jquery-3.3.1.slim.min.js' %}"></script>
     <script src="{% static 'bootstrap/popper.min.js' %}"></script>
     <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
+
+    <script src="{% static 'libs/jquery/dist/jquery.min.js' %}"></script>
+    <script src="{% static 'libs/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/sidebarmenu.js' %}"></script>
+    <script src="{% static 'js/app.min.js' %}"></script>
+    <script src="{% static 'libs/apexcharts/dist/apexcharts.min.js' %}"></script>
+    <script src="{% static 'libs/simplebar/dist/simplebar.js' %}"></script>
+    <script src="{% static 'js/dashboard.js' %}"></script>
+    <script src="https://kit.fontawesome.com/6e8f3b4a1f.js" crossorigin="anonymous"></script>
 
 </body>
 

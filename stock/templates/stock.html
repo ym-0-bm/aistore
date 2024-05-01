@@ -21,10 +21,10 @@
     <table class="table table-css table-bordered table-hover">
 
         <form method="get">
-            <div class="input-group search">
+            <div class="input-group search" style="border-radius: 50px;">
                 {% render_field filter.form.nom class="form-control textinput" placeholder="Rechercher par nom de produit" %}
                 <div class="input-group-append">
-                   <button type="submit" class="btn btn-pink"> Rechercher </button>
+                   <button type="submit" class="btn  btn-light"> <i class="fa-solid fa-magnifying-glass"></i> </button>
                 </div>
             </div>
         </form>
@@ -49,8 +49,8 @@
                     </td>
                     <td class="align-middle">{{ stock.quantite }}</td>
                     <td class="align-middle">
-                        <a href="{% url 'modif-stock' stock.id %}" class="btn btn-info btn-sm">Modifier </a>
-                        <a href="{% url 'sup-stock' stock.id %}" class="btn btn-danger btn-sm"> Supprimer </a>
+                        <a href="{% url 'modif-stock' stock.id %}" class="btn btn-outline-info m-1">Modifier </a>
+                        <a href="{% url 'sup-stock' stock.id %}" class="btn btn-outline-danger m-1"> Supprimer </a>
                     </td>          
                 </tr>
             {% endfor %}                   
