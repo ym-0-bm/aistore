@@ -17,7 +17,7 @@
     </div>
 
     <br>
-
+<!--
     <div class="row">
         <div class="col-md-6">
             <a href="{% url 'select-fournisseur' %}" class="btn btn-success btn-lg btn-block btn-huge">Nouvel Approvisionnement</a>
@@ -26,7 +26,7 @@
             <a href="{% url 'new-ventes' %}" class="btn btn-success btn-lg btn-block btn-huge">Nouvelle Vente</a>
         </div>
     </div>
-
+-->
     <br>
 
     <div class="">
@@ -34,34 +34,34 @@
 
             <div class="col-md-6">
                 <div style="color: #4e6570; font-style: bold; font-size: 1.3em; border-bottom: 2px solid #4e6570">Ventes récentes</div><br>
-                {% for item in sales %}
+                {% for article in ventes %}
                     {% if not forloop.first %}
                         <br><div style="border-bottom: 0.5px solid #4e6570"></div><br>
                     {% endif %}
                     <div class="row">               
                         <div class="col-md-9"> 
-                            Bill No: #{{ item.billno }} <br> 
-                            Purchased by <b>{{ item.name }}</b> <br>
-                            <small><i>{{ item.time.date }}</i></small>
+                            No facture: #{{ article.nofacture }} <br> 
+                            Acheté par <b>{{ article.nom|capfirst }}</b> <br>
+                            <small><i>{{ article.date.date|date:"d/m/Y" }}</i></small>
                         </div>
-                        <div class="col-md-2"> <br> ${{ item.get_total_price }} <br> <a href="{% url 'vente-facture' article.nofacture %}">View Bill</a> </div>
+                        <div class="col-md-3">Montant: <br> {{ article.get_total_price }} <small style="color: #909494">FCFA</small><br> <a href="{% url 'ventes-facture' article.nofacture %}">Voir la facture</a> </div>
                     </div>
                 {% endfor %}
             </div>
 
             <div class="col-md-6">
                 <div style="color: #4e6570; font-style: bold; font-size: 1.3em; border-bottom: 2px solid #4e6570">Approvisionnements récents</div><br>
-                {% for item in purchases %}
+                {% for article in achats %}
                     {% if not forloop.first %}
                         <br><div style="border-bottom: 0.5px solid #4e6570"></div><br>
                     {% endif %}
                     <div class="row">
                         <div class="col-md-9"> 
-                            Bill No: #{{ item.billno }} <br> 
-                            Purchased by <b>{{ item.supplier.name }}</b> <br>
-                            <small><i>{{ item.time.date }}</i></small>
+                            No Facture : #{{ article.nofacture }} <br> 
+                            Fournit par <b>{{ article.fournisseur.nom|capfirst }}</b> <br>
+                            <small><i>{{ article.date.date|date:"d/m/Y" }}</i></small>
                         </div>
-                        <div class="col-md-2"> <br>${{ item.get_total_price }} <br> <a href="{% url 'achat-facture' article.nofacture %}">View Bill</a> </div>
+                        <div class="col-md-3"> Montant:<br>{{ article.get_total_price }}<small style="color: #909494">FCFA</small> <br> <a href="{% url 'achat-facture' article.nofacture %}">Voir la facture</a> </div>
                     </div>
                 {% endfor %}
             </div>

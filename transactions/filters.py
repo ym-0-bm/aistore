@@ -3,11 +3,11 @@ from .models import ArticleAchat, ArticleVente, Fournisseur
 
 
 class AchatFilter(django_filters.FilterSet):
-    nom = django_filters.CharFilter(lookup_expr='icontains')
+    nom = django_filters.CharFilter(field_name='stock__nom', lookup_expr='icontains')
 
     class Meta:
         model = ArticleAchat
-        fields = ['stock']
+        fields = ['prixunitaire']
 
 
 class VenteFilter(django_filters.FilterSet):

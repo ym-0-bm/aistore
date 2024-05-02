@@ -118,6 +118,11 @@ class AchatView(ListView, FilterView):
     ordering = ['-date']
     paginate_by = 10
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter'] = self.filterset_class(self.request.GET, queryset=self.get_queryset())
+        return context
+
 
 class FournisseurSelectView(View):
     form_class = SelectFournisseurForm
@@ -260,8 +265,8 @@ class SupVenteView(SuccessMessageMixin, DeleteView):
 
 class FactureAchatView(View):
     model = FactureAchat
-    template_name = "facture/achat_facture.html"
-    facture_base = "facture/facture_base.html"
+    template_name = "factures/achat_facture.html"
+    facture_base = "factures/facture_base.html"
 
     def get(self, request, nofacture):
         context = {

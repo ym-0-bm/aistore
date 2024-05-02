@@ -7,7 +7,7 @@
 
 
 {% block content %}
-    
+
     <div class="row" style="color: #575757; font-style: bold; font-size: 3rem;">
         <div class="col-md-8">Liste des achats</div>
         <div class="col-md-4">
@@ -18,16 +18,20 @@
     <br>
 
     <table class="table table-css table-hover table-bordered">
-
+<!--
         <form method="get">
+
             <div class="input-group search" style="border-radius: 50px;">
-                {% render_field filter.form.stock class="form-control textinput" placeholder="Rechercher par nom de produit" %}
+                {#
+                    {% render_field filter.form.stock class="form-control textinput" placeholder="Rechercher par nom de produit" %}
+                #}
                 <div class="input-group-append">
                    <button type="submit" class="btn  btn-light"> <i class="fa-solid fa-magnifying-glass"></i> </button>
                 </div>
             </div>
-        </form>
 
+        </form>
+ -->
         <br>
 
         <thead class="thead-dark align-middle">
@@ -44,11 +48,11 @@
 
 {% if factures %}
 
-        <tbody>         
+        <tbody>
             {% for achat in factures %}
             <tr>
                 <td class="align-middle"> <p>{{ achat.nofacture }}</p> </td>
-                <td class=""> 
+                <td class="">
                     {% if achat.fournisseur.is_deleted %}
                         {{ achat.fournisseur }}<br>
                     {% else %}

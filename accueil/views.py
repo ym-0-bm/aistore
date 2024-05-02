@@ -11,9 +11,9 @@ class HomeView(View):
         labels = []
         data = []
         stockqueryset = Stock.objects.filter(is_deleted=False).order_by('-quantite')
-        for item in stockqueryset:
-            labels.append(item.nom)
-            data.append(item.quantite)
+        for article in stockqueryset:
+            labels.append(article.nom)
+            data.append(article.quantite)
         ventes = FactureVente.objects.order_by('-date')[:3]
         achats = FactureAchat.objects.order_by('-date')[:3]
         context = {

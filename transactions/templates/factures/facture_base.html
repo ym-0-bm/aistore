@@ -13,9 +13,9 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">    
     <link rel="stylesheet" type="text/css" href="{% static 'css/sidebar.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/bill.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'facture_style.css' %}">
     <link rel="shortcut icon" href="{% static 'img/estore-min.png' %}">
     <link rel="stylesheet" href="{% static 'css/styles.min.css' %}" />
     
@@ -67,9 +67,9 @@
                             <li> <a class="sidebar-text sidebar-subitem sidebar-button" href="{% url 'logout' %}"><i class="fas fa-dot-circle"></i> Logout</a> </li>
                     </ul>
                 </li>
--->
-            </ul>
 
+            </ul>
+-->
             {% comment %}
             <ul class="list-unstyled CTAs">
                 <li>
@@ -83,25 +83,17 @@
 
         </nav>
     
-        <div id="content" class="bg-white">
-
-            <div class="row">
-                <div class="col-md-12">
-                                    
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }}"> {{ message }} </div>
-                        {% endfor %}
-                    {% endif %}
-                    
-                    <div class="container">
-                        {% block content %}{% endblock content %}
-                    </div>
-                    
-                </div>
+        <div id="content">
+                                
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}"> {{ message }} </div>
+                {% endfor %}
+            {% endif %}
+            
+            <div class="container bg-gray">
+                {% block content %}{% endblock content %}
             </div>
-            <br>
-
         </div>
     
     </main>    
