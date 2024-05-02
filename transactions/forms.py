@@ -44,7 +44,7 @@ ArticleAchatFormset = formset_factory(ArticleAchatForm, extra=1)
 class DetailsAchatForm(forms.ModelForm):
     class Meta:
         model = DetailsFactureAchat
-        fields = ['eway', 'veh', 'destination', 'po', 'cgst', 'sgst', 'igst', 'cess', 'tcs', 'total']
+        fields = ['total']
 
 
 class FournisseurForm(forms.ModelForm):
@@ -56,9 +56,6 @@ class FournisseurForm(forms.ModelForm):
             {'class': 'textinput form-control', 'maxlength': '10', 'pattern': '[0-9]{10}',
              'title': 'Chiffres uniquement'})
         self.fields['email'].widget.attrs.update({'class': 'textinput form-control'})
-#        self.fields['gstin'].widget.attrs.update(
-#            {'class': 'textinput form-control', 'maxlength': '15', 'pattern': '[A-Z0-9]{15}',
-#             'title': 'Format GSTIN requis'})
 
     class Meta:
         model = Fournisseur
@@ -85,13 +82,10 @@ class VenteForm(forms.ModelForm):
              'title': 'chiffres uniquement',
              'required': 'true'})
         self.fields['email'].widget.attrs.update({'class': 'textinput form-control'})
-#        self.fields['gstin'].widget.attrs.update(
-#            {'class': 'textinput form-control', 'maxlength': '15', 'pattern': '[A-Z0-9]{15}',
-#             'title': 'GSTIN Format Required'})
 
     class Meta:
         model = FactureVente
-        fields = ['nom', 'telephone', 'adresse', 'email']      # , 'gstin'
+        fields = ['nom', 'telephone', 'adresse', 'email']
         widgets = {
             'adresse': forms.TextInput(
                 attrs={
@@ -123,4 +117,4 @@ ArticleVenteFormset = formset_factory(ArticleVenteForm, extra=1)
 class DetailsVenteForm(forms.ModelForm):
     class Meta:
         model = DetailsFactureVente
-        fields = ['eway', 'veh', 'destination', 'po', 'cgst', 'sgst', 'igst', 'cess', 'tcs', 'total']
+        fields = ['total']

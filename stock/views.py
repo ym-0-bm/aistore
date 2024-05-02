@@ -6,7 +6,7 @@ from django.views.generic import (
 )
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
-from .models import Stock
+from .models import Stock, Category
 from .forms import StockForm
 from django_filters.views import FilterView
 from .filters import StockFilter

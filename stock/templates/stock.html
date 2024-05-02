@@ -33,7 +33,9 @@
         
         <thead class="thead-dark align-middle">
             <tr>
-                <th width="40%">Nom produit</th>
+                <th>Nom produit</th>
+                <th>Type</th>
+                <th>Prix</th>
                 <th>Quantité en stock</th>
                 <th>Actions</th>
             </tr>
@@ -44,9 +46,8 @@
         <tbody>
             {% for stock in object_list %}
                 <tr>
-                    <td>
-                        <p>{{ stock.nom }}</p>
-                    </td>
+                    <td><p>{{ stock.nom }}</p></td>
+                    <td><p>{{ stock.categorystock.nom_category }}</p></td>
                     <td class="align-middle">{{ stock.quantite }}</td>
                     <td class="align-middle">
                         <a href="{% url 'modif-stock' stock.id %}" class="btn btn-outline-info m-1">Modifier </a>
