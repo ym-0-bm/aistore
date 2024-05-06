@@ -42,7 +42,7 @@
                         <div class="col-md-9"> 
                             No facture: #{{ article.nofacture }} <br> 
                             Acheté par <b>{{ article.nom|capfirst }}</b> <br>
-                            <small><i>{{ article.date.date|date:"d/m/Y" }}</i></small>
+                            <small><i>{{ article.date.date|date:"d/m/Y" }} à {{ article.date.time|time:"H:i:s" }}</i></small>
                         </div>
                         <div class="col-md-3">Montant: <br> {{ article.get_total_price }} <small style="color: #909494">FCFA</small><br> <a href="{% url 'ventes-facture' article.nofacture %}">Voir la facture</a> </div>
                     </div>

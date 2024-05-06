@@ -7,7 +7,7 @@ class AchatFilter(django_filters.FilterSet):
 
     class Meta:
         model = ArticleAchat
-        fields = ['prixunitaire']
+        fields = ['nom']
 
 
 class VenteFilter(django_filters.FilterSet):

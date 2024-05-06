@@ -53,9 +53,17 @@ class DetailsFactureAchat(models.Model):
 
 
 class FactureVente(models.Model):
+    HOMME = 'Homme'
+    FEMME = 'Femme'
+
+    GENRE_CHOICES = [
+        (HOMME, 'Homme'),
+        (FEMME, 'Femme'),
+    ]
+
     nofacture = models.AutoField(primary_key=True)
     date = models.DateTimeField(auto_now=True)
-
+    genre = models.CharField(max_length=7, choices=GENRE_CHOICES)
     nom = models.CharField(max_length=100)
     telephone = models.CharField(max_length=12)
     adresse = models.CharField(max_length=150)
@@ -79,7 +87,6 @@ class ArticleVente(models.Model):
     nofacture = models.ForeignKey(FactureVente, on_delete=models.CASCADE, related_name='factureventeno')
     stock = models.ForeignKey(Stock, on_delete=models.CASCADE, related_name='articlevente')
     quantite = models.IntegerField(default=1)
-    prixunitaire = models.IntegerField(default=1)
     montant = models.IntegerField(default=1)
 
     def __str__(self):

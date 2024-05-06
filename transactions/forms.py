@@ -108,7 +108,7 @@ class ArticleVenteForm(forms.ModelForm):
 
     class Meta:
         model = ArticleVente
-        fields = ['stock', 'quantite', 'prixunitaire']
+        fields = ['stock', 'quantite']
 
 
 ArticleVenteFormset = formset_factory(ArticleVenteForm, extra=1)

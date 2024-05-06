@@ -10,7 +10,7 @@
     <div class="row" style="color: #4e4e4e; font-style: bold; font-size: 3rem; ">
         <div class="col-md-8">Liste des produits en Stock</div>
         <div class="col-md-4">               
-            <div style="float:right;"> <a class="btn btn-success" href="{% url 'new-stock' %}">Ajouter</a> </div>
+            <div style="float:right;"> <a class="btn btn-success btn-md" href="{% url 'new-stock' %}">Ajouter</a> </div>
         </div>
     </div>
     
@@ -36,7 +36,7 @@
                 <th>Nom produit</th>
                 <th>Type</th>
                 <th>Prix</th>
-                <th>Quantité en stock</th>
+                <th>Quantité</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -47,11 +47,12 @@
             {% for stock in object_list %}
                 <tr>
                     <td><p>{{ stock.nom }}</p></td>
-                    <td><p>{{ stock.categorystock.nom_category }}</p></td>
+                    <td><p>{{ stock.id_category.nom_category }}</p></td>
+                    <td><p>{{ stock.prix }}<small style="color: #909494">FCFA</p></td>
                     <td class="align-middle">{{ stock.quantite }}</td>
                     <td class="align-middle">
-                        <a href="{% url 'modif-stock' stock.id %}" class="btn btn-outline-info m-1">Modifier </a>
-                        <a href="{% url 'sup-stock' stock.id %}" class="btn btn-outline-danger m-1"> Supprimer </a>
+                        <a href="{% url 'modif-stock' stock.id %}" class="btn btn-outline-info btn-sm">Modifier </a>
+                        <a href="{% url 'sup-stock' stock.id %}" class="btn btn-outline-danger btn-sm"> Supprimer </a>
                     </td>          
                 </tr>
             {% endfor %}                   
