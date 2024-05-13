@@ -92,11 +92,13 @@
             </div>
             <div class = "invoice-foot text-center">
                 <p><span class = "text-bold text-center">NOTE:&nbsp;</span>This is computer generated receipt and does not require physical signature.</p>
-                <div class="wrapper">
-                    <button class="center btn btn-primary" onclick="printpage('printArea')">Imprimer</button>
-                    <button class="center btn btn-success" type="submit">Enregistrer</button>
-                    <a href="{% url 'achats-list' %}" class=" btn center btn-secondary">Retour</a>
-                </div>
+            </div>
+        </div>
+        <div class = "invoice-foot text-center">
+            <div class="wrapper">
+                <button class="center btn btn-primary" onclick="printpage('printArea')">Imprimer</button>
+                <button class="center btn btn-success" type="submit">Enregistrer</button>
+                <a href="{% url 'achats-list' %}" class=" btn center btn-secondary">Retour</a>
             </div>
         </div>
     </div>

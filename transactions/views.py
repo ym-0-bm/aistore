@@ -306,14 +306,14 @@ class FactureAchatView(View):
 
 class FactureVenteView(View):
     model = FactureVente
-    template_name = "facture/vente_facture.html"
-    facture_base = "facture/facture_base.html"
+    template_name = "factures/vente_facture.html"
+    facture_base = "factures/facture_base.html"
 
     def get(self, request, nofacture):
         context = {
             'facture': FactureVente.objects.get(nofacture=nofacture),
             'article': ArticleVente.objects.filter(nofacture=nofacture),
-            'detailsfacture': DetailsFactureVente.objects.get(nofacture=nofacture),
+            # 'detailsfacture': DetailsFactureVente.objects.get(nofacture=nofacture),
             'facture_base': self.facture_base,
         }
         return render(request, self.template_name, context)
@@ -339,7 +339,7 @@ class FactureVenteView(View):
         context = {
             'facture': FactureVente.objects.get(nofacture=nofacture),
             'article': ArticleVente.objects.filter(nofacture=nofacture),
-            'detailsfacture': DetailsFactureVente.objects.get(nofacture=nofacture),
+            # 'detailsfacture': DetailsFactureVente.objects.get(nofacture=nofacture),
             'facture_base': self.facture_base,
         }
         return render(request, self.template_name, context)

@@ -1,0 +1,116 @@
+{% extends facture_base %}
+{% load static %}
+
+
+{% block title %} No Facture Achats : {{ facture.nofacture }}{% endblock title %}
+
+
+{% block content %}
+
+
+<div class = "invoice-wrapper bg-gray" id = "print-area">
+    <div class = "invoice">
+        <div class = "invoice-container" id="printArea">
+            <div class = "invoice-head">
+                <div class = "invoice-head-top">
+                    <div class = "invoice-head-top-left text-start">
+                        <img src = "{% static 'img/estore.png' %}" width="130" alt="estore logo">
+                    </div>
+                    <div class = "invoice-head-top-right text-end">
+                        <h3>FACTURE FISCALE </h3>
+                        <h5>Approvisionnement</h5>
+                    </div>
+                </div>
+                <div class = "hr"></div>
+                <div class = "invoice-head-middle">
+                    <div class = "invoice-head-middle-left text-start">
+                        <p><span class = "text-bold">Date</span>: {{ facture.date.date|date:"d/m/Y" }}</p>
+                    </div>
+                    <div class = "invoice-head-middle-right text-end">
+                        <p><span class = "text-bold">No Facture:</span>{{ facture.nofacture }}</p>
+                    </div>
+                </div>
+                <div class = "hr"></div>
+                <div class = "invoice-head-bottom">
+                    <div class = "invoice-head-bottom-left">
+                        <ul>
+                            <li class = 'text-bold'>Facturé à :</li>
+                            <li>e-store</li>
+                            <li>Abidjan, Côte d'Ivoire</li>
+                            <li>+225 05 05 05 05 05</li>
+                            <li>infos@estore.ci</li>
+                        </ul>
+                    </div>
+                    <div class = "invoice-head-bottom-right">
+                        <ul class = "text-end">
+                            <li class = 'text-bold'>Payer pour:</li>
+                            <li>{{ facture.fournisseur.nom|capfirst }}</li>
+                            <li>{{ facture.fournisseur.adresse }}</li>
+                            <li>{{ facture.fournisseur.telephone }}</li>
+                            <li>{{ facture.fournisseur.email }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class = "invoice-body">
+                <table>
+                    <thead>
+                        <tr>
+                            <td class = "text-bold">Index</td>
+                            <td class = "text-bold">Produit</td>
+                            <td class = "text-bold">Quantité</td>
+                            <td class = "text-bold">Prix Unitaire</td>
+                            <td class = "text-bold">Montant</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for art in article %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ art.stock.nom| capfirst }}</td>
+                            <td>{{ art.quantite }}</td>
+                            <td>{{ art.prixunitaire }}</td>
+                            <td>{{ art.montant }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class = "invoice-body-bottom">
+                    <div class = "invoice-body-info-item border-bottom">
+                        <div class = "info-item-td text-end text-bold">Total HT:</div>
+                        <div class = "info-item-td text-end"></div>
+                    </div>
+                    <div class = "invoice-body-info-item border-bottom">
+                        <div class = "info-item-td text-end text-bold">TVA:</div>
+                        <div class = "info-item-td text-end">$215.00</div>
+                    </div>
+                    <div class = "invoice-body-info-item">
+                        <div class = "info-item-td text-end text-bold">Total TTC:</div>
+                        <div class = "info-item-td text-end">$21365.00</div>
+                    </div>
+                </div>
+            </div>
+            <div class = "invoice-foot text-center">
+                <p><span class = "text-bold text-center">NOTE:&nbsp;</span>This is computer generated receipt and does not require physical signature.</p>
+            </div>
+        </div>
+        <div class = "invoice-foot text-center">
+            <div class="wrapper">
+                <button class="center btn btn-primary" onclick="printpage('printArea')">Imprimer</button>
+                <button class="center btn btn-success" type="submit">Enregistrer</button>
+                <a href="{% url 'achats-list' %}" class=" btn center btn-secondary">Retour</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function printpage(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+</script>
+
+{% endblock %}
