@@ -5,16 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5506dfcf-f9d2-4793-bd01-255593d056f2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/aistore.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/aistore.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/insertion.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/data/insertion.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transactions/templates/factures/achat_facture.html" beforeDir="false" afterPath="$PROJECT_DIR$/transactions/templates/factures/achat_facture.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transactions/templates/factures/facture_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/transactions/templates/factures/facture_base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transactions/templates/factures/vente_facture.html" beforeDir="false" afterPath="$PROJECT_DIR$/transactions/templates/factures/vente_facture.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transactions/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/transactions/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transactions/templates/ventes/liste_vente.html" beforeDir="false" afterPath="$PROJECT_DIR$/transactions/templates/ventes/liste_vente.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
